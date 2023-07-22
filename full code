@@ -1,0 +1,1798 @@
+Public Class Form1
+    Dim dice1, dice2, dice3, dice4, dice5 As Integer
+    Dim counter1 = 0
+    Dim counter2 = 0
+    Dim counter3 = 0
+    Dim counter4 = 0
+    Dim counter5 = 0
+    Dim vardie1lockedstatus As Boolean = False
+    Dim vardie2lockedstatus As Boolean = False
+    Dim vardie3lockedstatus As Boolean = False
+    Dim vardie4lockedstatus As Boolean = False
+    Dim vardie5lockedstatus As Boolean = False
+    Dim intTimesRolled As Integer
+    Dim Chances As Integer
+    Dim AcesScore As Integer = 0
+    Dim twosScore As Integer = 0
+    Dim threesScore As Integer = 0
+    Dim foursScore As Integer = 0
+    Dim fivesScore As Integer = 0
+    Dim sixesScore As Integer = 0
+    Dim upperhouseTotal As Integer = 0
+    Dim lowerhousetotal As Integer = 0
+    Dim randomnum1 As Integer = 0
+    Dim randomnum2 As Integer = 0
+    Dim randomnum3 As Integer = 0
+    Dim randomnum4 As Integer = 0
+    Dim randomnum5 As Integer = 0
+    Dim LargeStraight(4) As Integer
+    Dim username As String = Nothing
+    Dim highscores As Integer
+    '  ================================================repetetive comments are only made once===================================
+
+    Public blnHasEnteredScore As Boolean = False
+
+
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        tmrScoreTracker.Start()             'starts the scoretracker
+        tmrYahtzeeBonus.Start()
+    End Sub
+
+
+
+
+    Public Sub CounterAce()
+
+    End Sub
+
+
+
+
+    Private Sub btnRoller_Click(sender As Object, e As EventArgs) Handles btnRoller.Click
+        tmrTime.Start()
+        tmrTime2.Start()
+        tmrTimer3.Start()                          'starts all the timers for the dice'
+        tmrTime4.Start()
+        tmrTime5.Start()
+        intTimesRolled = intTimesRolled + 1
+        timesrolled.Text = intTimesRolled
+        If btnAces.Enabled = False And btnTwos.Enabled = False And btnThrees.Enabled = False And btnFours.Enabled = False And btnFives.Enabled = False And btnSixes.Enabled = False And btn3ofKind.Enabled = False And btn4ofakind.Enabled = False And btnFullHouse.Enabled = False And btnSmallStraight.Enabled = False And btnLargeStraight.Enabled = False And btnYAHTZEE.Enabled = False And btnYahtzeeBonus.Enabled = False Then
+            MsgBox("GG! Press End Game to Save")                                 'notices the user when game is finished
+        End If
+        If timesrolled.Text = 3 Then
+            btnRoller.Enabled = False
+            intTimesRolled = 0                                'counts rolling clicks
+        End If
+        If timesrolled.Text = 3 Then
+            MsgBox("End turn! Pick a Score")               'ends turn after 3 rounds
+        End If
+
+
+
+    End Sub
+
+    Private Sub btnHoldD1_Click(sender As Object, e As EventArgs) Handles btnHoldD1.Click
+        If picDice1.BackColor = Color.Red Then
+            picDice1.BackColor = Color.Transparent
+        Else                                                      'changes backcolour when holding
+            picDice1.BackColor = Color.Red
+        End If
+
+        If btnHoldD1.Text = "Hold" Then
+            btnHoldD1.Text = "Free"                             'changing text when holding
+        Else
+            btnHoldD1.Text = "Hold"
+        End If
+
+
+        If picDice1.Enabled = False Then
+            picDice1.Enabled = True
+        End If
+
+        If picDice1.Enabled = True Then
+            picDice1.Enabled = False
+        End If
+
+
+
+        tmrTime.Stop()                            'stops timer for dice 1
+
+        If vardie1lockedstatus = True Then
+            vardie1lockedstatus = False
+        Else                                               'holds the dice
+            vardie1lockedstatus = True
+        End If
+
+
+
+    End Sub
+
+    Private Sub btnHoldD2_Click(sender As Object, e As EventArgs) Handles btnHoldD2.Click                'same as dice1
+        If picDice2.BackColor = Color.Red Then
+            picDice2.BackColor = Color.Transparent
+        Else
+            picDice2.BackColor = Color.Red
+        End If
+        If btnHoldD2.Text = "Hold" Then
+            btnHoldD2.Text = "Free"
+        Else
+            btnHoldD2.Text = "Hold"
+        End If
+        tmrTime2.Stop()
+
+        If vardie2lockedstatus = True Then
+            vardie2lockedstatus = False
+        Else
+            vardie2lockedstatus = True
+        End If
+
+    End Sub
+
+    Private Sub btnHoldD3_Click(sender As Object, e As EventArgs) Handles btnHoldD3.Click                     'same as dice1
+        If picDice3.BackColor = Color.Red Then
+            picDice3.BackColor = Color.Transparent
+        Else
+            picDice3.BackColor = Color.Red
+        End If
+
+        If btnHoldD3.Text = "Hold" Then
+            btnHoldD3.Text = "Free"
+        Else
+            btnHoldD3.Text = "Hold"
+        End If
+        tmrTimer3.Stop()
+
+        If vardie3lockedstatus = True Then
+            vardie3lockedstatus = False
+        Else
+            vardie3lockedstatus = True
+        End If
+
+
+    End Sub
+
+    Private Sub btnHoldD4_Click(sender As Object, e As EventArgs) Handles btnHoldD4.Click                  'same as dice1
+        If picDice4.BackColor = Color.Red Then
+            picDice4.BackColor = Color.Transparent
+        Else
+            picDice4.BackColor = Color.Red
+        End If
+
+        If btnHoldD4.Text = "Hold" Then
+            btnHoldD4.Text = "Free"
+        Else
+            btnHoldD4.Text = "Hold"
+        End If
+
+        tmrTime4.Stop()
+
+        If vardie4lockedstatus = True Then
+            vardie4lockedstatus = False
+        Else
+            vardie4lockedstatus = True
+        End If
+
+
+    End Sub
+
+    Private Sub btnHoldD5_Click(sender As Object, e As EventArgs) Handles btnHoldD5.Click                 'same as dice1
+        If picDice5.BackColor = Color.Red Then
+            picDice5.BackColor = Color.Transparent
+        Else
+            picDice5.BackColor = Color.Red
+        End If
+
+        If btnHoldD5.Text = "Hold" Then
+            btnHoldD5.Text = "Free"
+        Else
+            btnHoldD5.Text = "Hold"
+        End If
+        tmrTime5.Stop()
+
+        If vardie5lockedstatus = True Then
+            vardie5lockedstatus = False
+        Else
+            vardie5lockedstatus = True
+        End If
+
+    End Sub
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    Private Sub tmrTime_Tick(sender As Object, e As EventArgs) Handles tmrTime.Tick
+        If vardie1lockedstatus = False Then             ' shows dice1 value as number
+            counter1 += 1
+            If counter1 = 20 Then
+                tmrTime.Enabled = False
+                counter1 = 0
+
+            End If
+
+            If counter1 > 0 Then
+                lblDice1counter.Text = 0
+            ElseIf counter1 = 0 Then
+                lblDice1counter.Text = dice1 + 1
+
+            End If
+            picDice1.Image = imlDice.Images.Item(dice1)
+            random = New Random
+
+            dice1 = random.Next(0, 6)                     'randomizes the dice
+
+
+        End If
+    End Sub
+
+
+
+
+
+
+
+    Private Sub tmrTime2_Tick(sender As Object, e As EventArgs) Handles tmrTime2.Tick
+        If vardie2lockedstatus = False Then                           'same as dice1
+            counter2 += 1
+            If counter2 = 12 Then
+                tmrTime2.Enabled = False
+                counter2 = 0
+                lblDice2counter.Text = dice2
+            End If
+            random = New Random
+            dice2 = random.Next(0, 6)
+            randomnum2 = lblDice2counter.Text
+            If counter2 > 0 Then
+                lblDice2counter.Text = 0
+            ElseIf counter2 = 0 Then
+                lblDice2counter.Text = dice2 + 1
+
+            End If
+            picDice2.Image = imlDice.Images.Item(dice2)
+        End If
+    End Sub
+
+
+
+
+
+
+    Private Sub tmrTimer3_Tick(sender As Object, e As EventArgs) Handles tmrTimer3.Tick
+        If vardie3lockedstatus = False Then                             'same as dice1
+            counter3 += 1
+            If counter3 = 17 Then
+                tmrTimer3.Enabled = False
+                counter3 = 0
+                lblDice3counter.Text = dice3
+            End If
+            random = New Random
+            dice3 = random.Next(0, 6)
+
+            If counter3 > 0 Then
+                lblDice3counter.Text = 0
+            ElseIf counter3 = 0 Then
+                lblDice3counter.Text = dice3 + 1
+            End If
+            picDice3.Image = imlDice.Images.Item(dice3)
+        End If
+    End Sub
+
+
+
+
+
+
+
+
+    Private Sub tmrTime4_Tick(sender As Object, e As EventArgs) Handles tmrTime4.Tick
+        If vardie4lockedstatus = False Then                                     'same as dice1
+            counter4 += 1
+            If counter4 = 13 Then
+                tmrTime4.Enabled = False
+                counter4 = 0
+                lblDice4counter.Text = dice4
+            End If
+            random = New Random
+            dice4 = random.Next(0, 6)
+
+            If counter4 > 0 Then
+                lblDice4counter.Text = 0
+            ElseIf counter4 = 0 Then
+                lblDice4counter.Text = dice4 + 1
+
+            End If
+
+            picDice4.Image = imlDice.Images.Item(dice4)
+        End If
+    End Sub
+
+
+
+
+
+
+
+
+    Private Sub tmrTime5_Tick(sender As Object, e As EventArgs) Handles tmrTime5.Tick
+        If vardie5lockedstatus = False Then                                     'same as dice1
+            counter5 += 1
+            If counter5 = 15 Then
+                tmrTime5.Enabled = False
+                counter5 = 0
+                lblDice5counter.Text = dice5
+            End If
+
+            random = New Random
+
+            dice5 = random.Next(0, 6)
+
+
+            If counter5 > 0 Then
+                lblDice5counter.Text = 0
+            ElseIf counter5 = 0 Then
+                lblDice5counter.Text = dice5 + 1
+            End If
+            picDice5.Image = imlDice.Images.Item(dice5)
+        End If
+    End Sub
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    Public Sub btnAces_Click(sender As Object, e As EventArgs) Handles btnAces.Click
+        If btnRoller.Enabled = False Then      'disables and enables the roller
+            btnRoller.Enabled = True
+        End If
+
+
+
+        If lblDice1counter.Text = 1 Then                        'read and save if any of the dice are equal to 1
+            AcesScore += 1
+        End If
+        If lblDice2counter.Text = 1 Then
+            AcesScore += 1
+        End If
+        If lblDice3counter.Text = 1 Then
+            AcesScore += 1
+        End If
+        If lblDice4counter.Text = 1 Then
+            AcesScore += 1
+        End If
+        If lblDice5counter.Text = 1 Then
+            AcesScore += 1
+        End If
+        If AcesScore >= 1 Then
+            picDice1.Image = imlDice.Images.Item(dice1)
+            picDice2.Image = imlDice.Images.Item(dice1)
+            picDice3.Image = imlDice.Images.Item(dice1)
+            picDice4.Image = imlDice.Images.Item(dice1)
+            picDice5.Image = imlDice.Images.Item(dice1)             'resets the round and give a message
+            MsgBox("Sucess! Next Round.")
+            btnAces.Enabled = False
+            intTimesRolled = 0
+            timesrolled.Text = 0
+        ElseIf AcesScore = 0 And MsgBox("This Will Give you 0 Points, Would you like to continue?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = MsgBoxResult.Yes Then
+            MsgBox("NEXT TURN")
+            btnAces.Enabled = False
+            intTimesRolled = 0
+            timesrolled.Text = 0                             'asks the user if they want to continou with 0 points and if so they reset the round
+            picDice1.Image = imlDice.Images.Item(dice1)
+            picDice2.Image = imlDice.Images.Item(dice1)
+            picDice3.Image = imlDice.Images.Item(dice1)
+            picDice4.Image = imlDice.Images.Item(dice1)
+            picDice5.Image = imlDice.Images.Item(dice1)
+
+        End If
+
+
+        blnHasEnteredScore = True
+        lblAcesVALUE.Text = AcesScore
+
+    End Sub
+
+    Private Sub btnChance_Click(sender As Object, e As EventArgs) Handles btnChance.Click
+        If btnRoller.Enabled = False Then
+            btnRoller.Enabled = True
+        End If
+        Chances = (CDbl(lblDice1counter.Text) + CDbl(lblDice2counter.Text) + CDbl(lblDice3counter.Text) + CDbl(lblDice4counter.Text) + CDbl(lblDice5counter.Text)).ToString
+        lblChanceVALUE.Text = Chances
+        intTimesRolled = 0
+        timesrolled.Text = 0
+        picDice1.Image = imlDice.Images.Item(dice1)                           'adds the dice together shows it and also disables the button and reset images
+        picDice2.Image = imlDice.Images.Item(dice1)
+        picDice3.Image = imlDice.Images.Item(dice1)
+        picDice4.Image = imlDice.Images.Item(dice1)
+        picDice5.Image = imlDice.Images.Item(dice1)
+        MsgBox("Sucess! Next Round.")
+
+        btnChance.Enabled = False
+    End Sub
+
+    Private Sub btnTwos_Click(sender As Object, e As EventArgs) Handles btnTwos.Click
+        If btnRoller.Enabled = False Then
+            btnRoller.Enabled = True
+        End If                                         'same as aces
+
+
+        If lblDice1counter.Text = 2 Then
+            twosScore += 2
+        End If
+        If lblDice2counter.Text = 2 Then
+            twosScore += 2
+        End If
+        If lblDice3counter.Text = 2 Then
+            twosScore += 2
+        End If
+        If lblDice4counter.Text = 2 Then
+            twosScore += 2
+        End If
+        If lblDice5counter.Text = 2 Then
+            twosScore += 2
+        End If
+        If twosScore > 1 Then
+            picDice1.Image = imlDice.Images.Item(dice1)
+            picDice2.Image = imlDice.Images.Item(dice1)
+            picDice3.Image = imlDice.Images.Item(dice1)
+            picDice4.Image = imlDice.Images.Item(dice1)
+            picDice5.Image = imlDice.Images.Item(dice1)
+            MsgBox("Sucess! Next Round.")
+            btnTwos.Enabled = False
+            intTimesRolled = 0
+            timesrolled.Text = 0
+        ElseIf twosScore = 0 And MsgBox("This Will Give you 0 Points, Would you like to continue?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = MsgBoxResult.Yes Then
+            btnTwos.Enabled = False
+            MsgBox("NEXT TURN")
+            intTimesRolled = 0
+            timesrolled.Text = 0
+            picDice1.Image = imlDice.Images.Item(dice1)
+            picDice2.Image = imlDice.Images.Item(dice1)
+            picDice3.Image = imlDice.Images.Item(dice1)
+            picDice4.Image = imlDice.Images.Item(dice1)
+            picDice5.Image = imlDice.Images.Item(dice1)
+
+        End If
+
+
+        blnHasEnteredScore = True
+        lblTwosVALUE.Text = twosScore
+    End Sub
+
+    Private Sub btnThrees_Click(sender As Object, e As EventArgs) Handles btnThrees.Click
+        If btnRoller.Enabled = False Then
+            btnRoller.Enabled = True
+        End If
+        'same as threes
+
+        If lblDice1counter.Text = 3 Then
+            threesScore += 3
+        End If
+        If lblDice2counter.Text = 3 Then
+            threesScore += 3
+        End If
+        If lblDice3counter.Text = 3 Then
+            threesScore += 3
+        End If
+        If lblDice4counter.Text = 3 Then
+            threesScore += 3
+        End If
+        If lblDice5counter.Text = 3 Then
+            threesScore += 3
+        End If
+        If threesScore > 1 Then
+            picDice1.Image = imlDice.Images.Item(dice1)
+            picDice2.Image = imlDice.Images.Item(dice1)
+            picDice3.Image = imlDice.Images.Item(dice1)
+            picDice4.Image = imlDice.Images.Item(dice1)
+            picDice5.Image = imlDice.Images.Item(dice1)
+            MsgBox("Sucess! Next Round.")
+            btnThrees.Enabled = False
+            intTimesRolled = 0
+            timesrolled.Text = 0
+        ElseIf threesScore = 0 And MsgBox("This Will Give you 0 Points, Would you like to continue?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = MsgBoxResult.Yes Then
+            btnThrees.Enabled = False
+            MsgBox("NEXT TURN")
+            intTimesRolled = 0
+            timesrolled.Text = 0
+            picDice1.Image = imlDice.Images.Item(dice1)
+            picDice2.Image = imlDice.Images.Item(dice1)
+            picDice3.Image = imlDice.Images.Item(dice1)
+            picDice4.Image = imlDice.Images.Item(dice1)
+            picDice5.Image = imlDice.Images.Item(dice1)
+
+        End If
+
+
+        blnHasEnteredScore = True
+        lblThreesVALUE.Text = threesScore
+    End Sub
+
+    Private Sub btnFives_Click(sender As Object, e As EventArgs) Handles btnFives.Click
+        If btnRoller.Enabled = False Then
+            btnRoller.Enabled = True
+        End If
+        'same as aces
+
+        If lblDice1counter.Text = 5 Then
+            fivesScore += 5
+        End If
+        If lblDice2counter.Text = 5 Then
+            fivesScore += 5
+        End If
+        If lblDice3counter.Text = 5 Then
+            fivesScore += 5
+        End If
+        If lblDice4counter.Text = 5 Then
+            fivesScore += 5
+        End If
+        If lblDice5counter.Text = 5 Then
+            fivesScore += 5
+        End If
+        If fivesScore > 1 Then
+            picDice1.Image = imlDice.Images.Item(dice1)
+            picDice2.Image = imlDice.Images.Item(dice1)
+            picDice3.Image = imlDice.Images.Item(dice1)
+            picDice4.Image = imlDice.Images.Item(dice1)
+            picDice5.Image = imlDice.Images.Item(dice1)
+            MsgBox("Sucess! Next Round.")
+            btnFives.Enabled = False
+            intTimesRolled = 0
+            timesrolled.Text = 0
+        ElseIf fivesScore = 0 And MsgBox("This Will Give you 0 Points, Would you like to continue?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = MsgBoxResult.Yes Then
+            btnFives.Enabled = False
+            MsgBox("NEXT TURN")
+            intTimesRolled = 0
+            timesrolled.Text = 0
+            picDice1.Image = imlDice.Images.Item(dice1)
+            picDice2.Image = imlDice.Images.Item(dice1)
+            picDice3.Image = imlDice.Images.Item(dice1)
+            picDice4.Image = imlDice.Images.Item(dice1)
+            picDice5.Image = imlDice.Images.Item(dice1)
+
+        End If
+
+
+        blnHasEnteredScore = True
+        lblFivesVALUE.Text = fivesScore
+    End Sub
+
+    Private Sub btnfours_Click(sender As Object, e As EventArgs) Handles btnFours.Click
+        If btnRoller.Enabled = False Then
+            btnRoller.Enabled = True
+        End If
+        'same as aces
+
+        If lblDice1counter.Text = 4 Then
+            foursScore += 4
+        End If
+        If lblDice2counter.Text = 4 Then
+            foursScore += 4
+        End If
+        If lblDice3counter.Text = 4 Then
+            foursScore += 4
+        End If
+        If lblDice4counter.Text = 4 Then
+            foursScore += 4
+        End If
+        If lblDice5counter.Text = 4 Then
+            foursScore += 4
+        End If
+        If foursScore > 1 Then
+            picDice1.Image = imlDice.Images.Item(dice1)
+            picDice2.Image = imlDice.Images.Item(dice1)
+            picDice3.Image = imlDice.Images.Item(dice1)
+            picDice4.Image = imlDice.Images.Item(dice1)
+            picDice5.Image = imlDice.Images.Item(dice1)
+            MsgBox("Sucess! Next Round.")
+            btnFours.Enabled = False
+            intTimesRolled = 0
+            timesrolled.Text = 0
+        ElseIf foursScore = 0 And MsgBox("This Will Give you 0 Points, Would you like to continue?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = MsgBoxResult.Yes Then
+            btnFours.Enabled = False
+            MsgBox("NEXT TURN")
+            intTimesRolled = 0
+            timesrolled.Text = 0
+            picDice1.Image = imlDice.Images.Item(dice1)
+            picDice2.Image = imlDice.Images.Item(dice1)
+            picDice3.Image = imlDice.Images.Item(dice1)
+            picDice4.Image = imlDice.Images.Item(dice1)
+            picDice5.Image = imlDice.Images.Item(dice1)
+
+        End If
+
+
+        blnHasEnteredScore = True
+        lblFoursVALUE.Text = foursScore
+    End Sub
+
+    Private Sub btnSixes_Click(sender As Object, e As EventArgs) Handles btnSixes.Click
+        If btnRoller.Enabled = False Then
+            btnRoller.Enabled = True
+        End If
+        'same as aces
+
+        If lblDice1counter.Text = 6 Then
+            sixesScore += 6
+        End If
+        If lblDice2counter.Text = 6 Then
+            sixesScore += 6
+        End If
+        If lblDice3counter.Text = 6 Then
+            sixesScore += 6
+        End If
+        If lblDice4counter.Text = 6 Then
+            sixesScore += 6
+        End If
+        If lblDice5counter.Text = 6 Then
+            sixesScore += 6
+        End If
+        If sixesScore > 1 Then
+            btnSixes.Enabled = False
+            picDice1.Image = imlDice.Images.Item(dice1)
+            picDice2.Image = imlDice.Images.Item(dice1)
+            picDice3.Image = imlDice.Images.Item(dice1)
+            picDice4.Image = imlDice.Images.Item(dice1)
+            picDice5.Image = imlDice.Images.Item(dice1)
+            MsgBox("Sucess! Next Round.")
+            intTimesRolled = 0
+            timesrolled.Text = 0
+        ElseIf sixesScore = 0 And MsgBox("This Will Give you 0 Points, Would you like to continue?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = MsgBoxResult.Yes Then
+            MsgBox("NEXT TURN")
+            btnSixes.Enabled = False
+            picDice1.Image = imlDice.Images.Item(dice1)
+            picDice2.Image = imlDice.Images.Item(dice1)
+            picDice3.Image = imlDice.Images.Item(dice1)
+            picDice4.Image = imlDice.Images.Item(dice1)
+            picDice5.Image = imlDice.Images.Item(dice1)
+            intTimesRolled = 0
+            timesrolled.Text = 0
+
+
+        End If
+
+
+        blnHasEnteredScore = True
+        lblSixesVALUE.Text = sixesScore
+    End Sub
+
+    Private Sub lblUpperTotalLabel_Click(sender As Object, e As EventArgs) Handles lblUpperTotalLabel.Click
+
+    End Sub
+
+    Private Sub tmrScoreTracker_Tick(sender As Object, e As EventArgs) Handles tmrScoreTracker.Tick
+
+
+
+
+        btnexit.Visible = False                             'makes the exit button invisivle untill game is ended
+        upperhouseTotal = AcesScore + twosScore + threesScore + foursScore + fivesScore + sixesScore            'counts the uperhouse
+
+        lblUpperTotalVALUE.Text = upperhouseTotal
+
+        If lblUpperTotalVALUE.Text >= 55 Then
+            lblBonusVALUE.Text = 50                 'identifies for a bonus and gives it
+
+        End If
+
+
+        lbllowertotalVALUE.Text = Val(lblChanceVALUE.Text) + Val(lbl3ofkindVALUE.Text) + Val(lbl4ofkindVALUE.Text) + Val(lblsmallstraightVALUE.Text) + Val(lblLargestraightVALUE.Text) + Val(lblyahtzeeVALUE.Text) + Val(lblyahtzeebonusVALUE.Text) + Val(lblFullhouseVALUE.Text)
+        lblTotalVALUE.Text = Val(lbllowertotalVALUE.Text) + Val(lblUpperTotalVALUE.Text) + Val(lblBonusVALUE.Text)
+
+        If timesrolled.Text = 0 And btnHoldD1.Text = "Free" Then
+            btnHoldD1.PerformClick()
+        End If
+        If timesrolled.Text = 0 And btnHoldD2.Text = "Free" Then
+            btnHoldD2.PerformClick()
+        End If
+        If timesrolled.Text = 0 And btnHoldD3.Text = "Free" Then
+            btnHoldD3.PerformClick()
+        End If
+        If timesrolled.Text = 0 And btnHoldD4.Text = "Free" Then                        'doesn't allow you to hold the dice when your on 0 rolls
+            btnHoldD4.PerformClick()
+        End If
+        If timesrolled.Text = 0 And btnHoldD5.Text = "Free" Then
+            btnHoldD5.PerformClick()
+        End If
+        If lblUpperTotalVALUE.Text >= 50 Then
+            lblBonusVALUE.Text = 55
+        End If
+
+        If timesrolled.Text = 0 Then
+            btnAces.Visible = False
+            btnTwos.Visible = False
+            btnThrees.Visible = False
+            btnFours.Visible = False
+            btnFives.Visible = False
+            btnSixes.Visible = False                                'stops buttons from showing when rolling
+            btn3ofKind.Visible = False
+            btn4ofakind.Visible = False
+            btnSmallStraight.Visible = False
+            btnLargeStraight.Visible = False
+            btnChance.Visible = False
+            btnFullHouse.Visible = False
+            btnThrees.Visible = False
+            btnYAHTZEE.Visible = False
+            btnYahtzeeBonus.Visible = False
+        ElseIf (vardie5lockedstatus = False And tmrTime5.Enabled = True) Or (vardie4lockedstatus = False And tmrTime4.Enabled = True) Or (vardie3lockedstatus = False And tmrTimer3.Enabled = True) Or (vardie2lockedstatus = False And tmrTime2.Enabled = True) Or (vardie1lockedstatus = False And tmrTime.Enabled = True) Then
+            Button1.Visible = False
+            btnAces.Visible = False
+            btnTwos.Visible = False
+            btnThrees.Visible = False
+            btnFours.Visible = False
+            btnFives.Visible = False
+            btnSixes.Visible = False
+            btn3ofKind.Visible = False
+            btn4ofakind.Visible = False
+            btnSmallStraight.Visible = False
+            btnLargeStraight.Visible = False
+            btnChance.Visible = False
+            btnFullHouse.Visible = False
+            btnThrees.Visible = False
+            btnYAHTZEE.Visible = False
+            btnYahtzeeBonus.Visible = False
+        Else
+            Button1.Visible = True
+            btnAces.Visible = True
+            btnTwos.Visible = True
+            btnThrees.Visible = True
+            btnFours.Visible = True
+            btnFives.Visible = True
+            btnSixes.Visible = True
+            btn3ofKind.Visible = True
+            btnFullHouse.Visible = True
+            btn4ofakind.Visible = True
+            btnSmallStraight.Visible = True
+            btnLargeStraight.Visible = True
+            btnChance.Visible = True
+            btnThrees.Visible = True
+            btnYAHTZEE.Visible = True
+            btnYahtzeeBonus.Visible = True
+
+        End If
+        If btnHoldD1.Text = "Free" And btnHoldD2.Text = "Free" And btnHoldD3.Text = "Free" And btnHoldD4.Text = "Free" And btnHoldD5.Text = "Free" Then
+
+            btnHoldD1.PerformClick()
+            btnHoldD2.PerformClick()
+            btnHoldD3.PerformClick()                      'stops you from holding all dice
+            btnHoldD4.PerformClick()
+            btnHoldD5.PerformClick()
+            MsgBox("Can't Hold All Dice")
+        End If
+        If timesrolled.Text = 3 Then
+            btnRoller.Enabled = False
+        Else
+            btnRoller.Enabled = True
+        End If
+        If Button1.Visible = False Then
+            btnRoller.Enabled = False
+        End If
+
+
+
+
+
+
+    End Sub
+
+    Private Sub btnRULES_Click(sender As Object, e As EventArgs) Handles btnRULES.Click
+        System.Diagnostics.Process.Start("https://www.hasbro.com/common/instruct/yahtzee.pdf")          'shows help
+    End Sub
+
+    Private Sub btn3ofKind_Click(sender As Object, e As EventArgs) Handles btn3ofKind.Click
+        If btnRoller.Enabled = False Then
+            btnRoller.Enabled = True
+        End If
+
+        If lblDice1counter.Text = lblDice2counter.Text And lblDice2counter.Text = lblDice3counter.Text Then
+            picDice1.Image = imlDice.Images.Item(dice1)
+            picDice2.Image = imlDice.Images.Item(dice1)
+            picDice3.Image = imlDice.Images.Item(dice1)
+            picDice4.Image = imlDice.Images.Item(dice1)
+            picDice5.Image = imlDice.Images.Item(dice1)
+            MsgBox("Sucess! Next Round.")
+            intTimesRolled = 0
+            timesrolled.Text = 0                                                        'identifies for a 3 of  kind and gives it
+            btn3ofKind.Enabled = False
+            lbl3ofkindVALUE.Text = Val(lblDice1counter.Text) + Val(lblDice2counter.Text) + Val(lblDice3counter.Text) + Val(lblDice4counter.Text) + Val(lblDice5counter.Text)
+
+        ElseIf lblDice1counter.Text = lblDice2counter.Text And lblDice2counter.Text = lblDice4counter.Text Then
+            picDice1.Image = imlDice.Images.Item(dice1)
+            picDice2.Image = imlDice.Images.Item(dice1)
+            picDice3.Image = imlDice.Images.Item(dice1)
+            picDice4.Image = imlDice.Images.Item(dice1)
+            picDice5.Image = imlDice.Images.Item(dice1)
+            MsgBox("Sucess! Next Round.")
+            intTimesRolled = 0
+            timesrolled.Text = 0
+            btn3ofKind.Enabled = False
+            lbl3ofkindVALUE.Text = Val(lblDice1counter.Text) + Val(lblDice2counter.Text) + Val(lblDice3counter.Text) + Val(lblDice4counter.Text) + Val(lblDice5counter.Text)
+        ElseIf lblDice1counter.Text = lblDice2counter.Text And lblDice2counter.Text = lblDice5counter.Text Then
+            picDice1.Image = imlDice.Images.Item(dice1)
+            picDice2.Image = imlDice.Images.Item(dice1)
+            picDice3.Image = imlDice.Images.Item(dice1)
+            picDice4.Image = imlDice.Images.Item(dice1)
+            picDice5.Image = imlDice.Images.Item(dice1)
+            MsgBox("Sucess! Next Round.")
+            intTimesRolled = 0
+            timesrolled.Text = 0
+            btn3ofKind.Enabled = False
+            lbl3ofkindVALUE.Text = Val(lblDice1counter.Text) + Val(lblDice2counter.Text) + Val(lblDice3counter.Text) + Val(lblDice4counter.Text) + Val(lblDice5counter.Text)
+        ElseIf lblDice1counter.Text = lblDice3counter.Text And lblDice3counter.Text = lblDice4counter.Text Then
+            picDice1.Image = imlDice.Images.Item(dice1)
+            picDice2.Image = imlDice.Images.Item(dice1)
+            picDice3.Image = imlDice.Images.Item(dice1)
+            picDice4.Image = imlDice.Images.Item(dice1)
+            picDice5.Image = imlDice.Images.Item(dice1)
+            MsgBox("Sucess! Next Round.")
+            intTimesRolled = 0
+            timesrolled.Text = 0
+            btn3ofKind.Enabled = False
+            lbl3ofkindVALUE.Text = Val(lblDice1counter.Text) + Val(lblDice2counter.Text) + Val(lblDice3counter.Text) + Val(lblDice4counter.Text) + Val(lblDice5counter.Text)
+        ElseIf lblDice1counter.Text = lblDice3counter.Text And lblDice3counter.Text = lblDice5counter.Text Then
+            picDice1.Image = imlDice.Images.Item(dice1)
+            picDice2.Image = imlDice.Images.Item(dice1)
+            picDice3.Image = imlDice.Images.Item(dice1)
+            picDice4.Image = imlDice.Images.Item(dice1)
+            picDice5.Image = imlDice.Images.Item(dice1)
+            MsgBox("Sucess! Next Round.")
+            intTimesRolled = 0
+            timesrolled.Text = 0
+            btn3ofKind.Enabled = False
+            lbl3ofkindVALUE.Text = Val(lblDice1counter.Text) + Val(lblDice2counter.Text) + Val(lblDice3counter.Text) + Val(lblDice4counter.Text) + Val(lblDice5counter.Text)
+        ElseIf lblDice1counter.Text = lblDice4counter.Text And lblDice4counter.Text = lblDice5counter.Text Then
+            picDice1.Image = imlDice.Images.Item(dice1)
+            picDice2.Image = imlDice.Images.Item(dice1)
+            picDice3.Image = imlDice.Images.Item(dice1)
+            picDice4.Image = imlDice.Images.Item(dice1)
+            picDice5.Image = imlDice.Images.Item(dice1)
+            MsgBox("Sucess! Next Round.")
+            intTimesRolled = 0
+            timesrolled.Text = 0
+            btn3ofKind.Enabled = False
+            lbl3ofkindVALUE.Text = Val(lblDice1counter.Text) + Val(lblDice2counter.Text) + Val(lblDice3counter.Text) + Val(lblDice4counter.Text) + Val(lblDice5counter.Text)
+        ElseIf lblDice2counter.Text And lblDice3counter.Text And lblDice3counter.Text = lblDice4counter.Text Then
+            picDice1.Image = imlDice.Images.Item(dice1)
+            picDice2.Image = imlDice.Images.Item(dice1)
+            picDice3.Image = imlDice.Images.Item(dice1)
+            picDice4.Image = imlDice.Images.Item(dice1)
+            picDice5.Image = imlDice.Images.Item(dice1)
+            MsgBox("Sucess! Next Round.")
+            intTimesRolled = 0
+            timesrolled.Text = 0
+            btn3ofKind.Enabled = False
+            lbl3ofkindVALUE.Text = Val(lblDice1counter.Text) + Val(lblDice2counter.Text) + Val(lblDice3counter.Text) + Val(lblDice4counter.Text) + Val(lblDice5counter.Text)
+        ElseIf lblDice2counter.Text = lblDice3counter.Text And lblDice3counter.Text = lblDice5counter.Text Then
+            picDice1.Image = imlDice.Images.Item(dice1)
+            picDice2.Image = imlDice.Images.Item(dice1)
+            picDice3.Image = imlDice.Images.Item(dice1)
+            picDice4.Image = imlDice.Images.Item(dice1)
+            picDice5.Image = imlDice.Images.Item(dice1)
+            MsgBox("Sucess! Next Round.")
+            intTimesRolled = 0
+            timesrolled.Text = 0
+            btn3ofKind.Enabled = False
+            lbl3ofkindVALUE.Text = Val(lblDice1counter.Text) + Val(lblDice2counter.Text) + Val(lblDice3counter.Text) + Val(lblDice4counter.Text) + Val(lblDice5counter.Text)
+        ElseIf lblDice2counter.Text = lblDice4counter.Text And lblDice4counter.Text = lblDice5counter.Text Then
+            picDice1.Image = imlDice.Images.Item(dice1)
+            picDice2.Image = imlDice.Images.Item(dice1)
+            picDice3.Image = imlDice.Images.Item(dice1)
+            picDice4.Image = imlDice.Images.Item(dice1)
+            picDice5.Image = imlDice.Images.Item(dice1)
+            MsgBox("Sucess! Next Round.")
+            intTimesRolled = 0
+            timesrolled.Text = 0
+            btn3ofKind.Enabled = False
+            lbl3ofkindVALUE.Text = Val(lblDice1counter.Text) + Val(lblDice2counter.Text) + Val(lblDice3counter.Text) + Val(lblDice4counter.Text) + Val(lblDice5counter.Text)
+        ElseIf lblDice3counter.Text = lblDice4counter.Text And lblDice4counter.Text = lblDice5counter.Text Then
+            picDice1.Image = imlDice.Images.Item(dice1)
+            picDice2.Image = imlDice.Images.Item(dice1)
+            picDice3.Image = imlDice.Images.Item(dice1)
+            picDice4.Image = imlDice.Images.Item(dice1)
+            picDice5.Image = imlDice.Images.Item(dice1)
+            MsgBox("Sucess! Next Round.")
+            intTimesRolled = 0
+            timesrolled.Text = 0
+            btn3ofKind.Enabled = False
+            lbl3ofkindVALUE.Text = Val(lblDice1counter.Text) + Val(lblDice2counter.Text) + Val(lblDice3counter.Text) + Val(lblDice4counter.Text) + Val(lblDice5counter.Text)
+        Else
+
+            If MsgBox("This Will Give you 0 Points, Would you like to continue?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = MsgBoxResult.Yes Then
+                MsgBox("NEXT TURN")
+                intTimesRolled = 0                            'tells the user that they can't pick the score and if they say ok they get 0 points.
+                timesrolled.Text = 0
+                picDice1.Image = imlDice.Images.Item(dice1)
+                picDice2.Image = imlDice.Images.Item(dice1)
+                picDice3.Image = imlDice.Images.Item(dice1)
+                picDice4.Image = imlDice.Images.Item(dice1)
+                picDice5.Image = imlDice.Images.Item(dice1)
+                btn3ofKind.Enabled = False
+                If timesrolled.Text = 3 Then
+                    btnRoller.Enabled = False
+                End If
+
+            End If
+        End If
+
+    End Sub
+
+    Private Sub btn4ofakind_Click(sender As Object, e As EventArgs) Handles btn4ofakind.Click
+        If btnRoller.Enabled = False Then
+            btnRoller.Enabled = True
+        End If
+        ' Identifying if there are any 4 of a kind combinations and if so giving score
+        If lblDice1counter.Text = lblDice2counter.Text And lblDice2counter.Text = lblDice3counter.Text And lblDice3counter.Text = lblDice4counter.Text Then
+            lbl4ofkindVALUE.Text = Val(lblDice1counter.Text) + Val(lblDice2counter.Text) + Val(lblDice3counter.Text) + Val(lblDice4counter.Text) + Val(lblDice5counter.Text)
+            picDice1.Image = imlDice.Images.Item(dice1)
+            picDice2.Image = imlDice.Images.Item(dice1)
+            picDice3.Image = imlDice.Images.Item(dice1)
+            picDice4.Image = imlDice.Images.Item(dice1)
+            picDice5.Image = imlDice.Images.Item(dice1)
+            MsgBox("Sucess! Next Round.")
+            btn4ofakind.Enabled = False
+            intTimesRolled = 0
+            timesrolled.Text = 0
+        ElseIf lblDice1counter.Text = lblDice2counter.Text And lblDice2counter.Text = lblDice3counter.Text And lblDice3counter.Text = lblDice5counter.Text Then
+            lbl4ofkindVALUE.Text = Val(lblDice1counter.Text) + Val(lblDice2counter.Text) + Val(lblDice3counter.Text) + Val(lblDice4counter.Text) + Val(lblDice5counter.Text)
+            picDice1.Image = imlDice.Images.Item(dice1)
+            picDice2.Image = imlDice.Images.Item(dice1)
+            picDice3.Image = imlDice.Images.Item(dice1)
+            picDice4.Image = imlDice.Images.Item(dice1)
+            picDice5.Image = imlDice.Images.Item(dice1)
+            MsgBox("Sucess! Next Round.")
+            btn4ofakind.Enabled = False
+            intTimesRolled = 0
+            timesrolled.Text = 0
+        ElseIf lblDice1counter.Text = lblDice3counter.Text And lblDice3counter.Text = lblDice4counter.Text And lblDice4counter.Text = lblDice5counter.Text Then
+            picDice1.Image = imlDice.Images.Item(dice1)
+            picDice2.Image = imlDice.Images.Item(dice1)
+            picDice3.Image = imlDice.Images.Item(dice1)
+            picDice4.Image = imlDice.Images.Item(dice1)
+            picDice5.Image = imlDice.Images.Item(dice1)
+            MsgBox("Sucess! Next Round.")
+            btn4ofakind.Enabled = False
+            intTimesRolled = 0
+            timesrolled.Text = 0
+            lbl4ofkindVALUE.Text = Val(lblDice1counter.Text) + Val(lblDice2counter.Text) + Val(lblDice3counter.Text) + Val(lblDice4counter.Text) + Val(lblDice5counter.Text)
+        ElseIf lblDice2counter.Text = lblDice3counter.Text And lblDice3counter.Text = lblDice4counter.Text And lblDice4counter.Text = lblDice5counter.Text Then
+            picDice1.Image = imlDice.Images.Item(dice1)
+            picDice2.Image = imlDice.Images.Item(dice1)
+            picDice3.Image = imlDice.Images.Item(dice1)
+            picDice4.Image = imlDice.Images.Item(dice1)
+            picDice5.Image = imlDice.Images.Item(dice1)
+            MsgBox("Sucess! Next Round.")
+            btn4ofakind.Enabled = False
+            intTimesRolled = 0
+            timesrolled.Text = 0
+            lbl4ofkindVALUE.Text = Val(lblDice1counter.Text) + Val(lblDice2counter.Text) + Val(lblDice3counter.Text) + Val(lblDice4counter.Text) + Val(lblDice5counter.Text)
+        ElseIf lblDice1counter.Text = lblDice2counter.Text And lblDice2counter.Text = lblDice4counter.Text And lblDice4counter.Text = lblDice5counter.Text Then
+            picDice1.Image = imlDice.Images.Item(dice1)
+            picDice2.Image = imlDice.Images.Item(dice1)
+            picDice3.Image = imlDice.Images.Item(dice1)
+            picDice4.Image = imlDice.Images.Item(dice1)
+            picDice5.Image = imlDice.Images.Item(dice1)
+            MsgBox("Sucess! Next Round.")
+            btn4ofakind.Enabled = False
+            intTimesRolled = 0
+            timesrolled.Text = 0
+            lbl4ofkindVALUE.Text = Val(lblDice1counter.Text) + Val(lblDice2counter.Text) + Val(lblDice3counter.Text) + Val(lblDice4counter.Text) + Val(lblDice5counter.Text)
+            If timesrolled.Text = 3 Then
+                btnRoller.Enabled = False
+            End If
+        Else
+            If MsgBox("This Will Give you 0 Points, Would you like to continue?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = MsgBoxResult.Yes Then
+                MsgBox("NEXT TURN")
+                picDice1.Image = imlDice.Images.Item(dice1)
+                picDice2.Image = imlDice.Images.Item(dice1)
+                picDice3.Image = imlDice.Images.Item(dice1)                       'if no 4 of a kind available then 0 points
+                picDice4.Image = imlDice.Images.Item(dice1)
+                picDice5.Image = imlDice.Images.Item(dice1)
+                intTimesRolled = 0
+                timesrolled.Text = 0
+                btn4ofakind.Enabled = False
+            End If
+        End If
+
+    End Sub
+
+    Private Sub btnFullHouse_Click(sender As Object, e As EventArgs) Handles btnFullHouse.Click
+        If btnRoller.Enabled = False Then
+            btnRoller.Enabled = True
+        End If
+        ' same as others
+        If (lblDice1counter.Text = lblDice2counter.Text And lblDice2counter.Text = lblDice3counter.Text) And lblDice4counter.Text = lblDice5counter.Text Then
+            lblFullhouseVALUE.Text = 20
+            picDice1.Image = imlDice.Images.Item(dice1)
+            picDice2.Image = imlDice.Images.Item(dice1)
+            picDice3.Image = imlDice.Images.Item(dice1)
+            picDice4.Image = imlDice.Images.Item(dice1)
+            picDice5.Image = imlDice.Images.Item(dice1)
+            MsgBox("Sucess! Next Round.")
+            btnFullHouse.Enabled = False
+            intTimesRolled = 0
+            timesrolled.Text = 0
+        ElseIf (lblDice1counter.Text = lblDice2counter.Text And lblDice2counter.Text = lblDice4counter.Text) And lblDice3counter.Text = lblDice5counter.Text Then
+            lblFullhouseVALUE.Text = 20
+            picDice1.Image = imlDice.Images.Item(dice1)
+            picDice2.Image = imlDice.Images.Item(dice1)
+            picDice3.Image = imlDice.Images.Item(dice1)
+            picDice4.Image = imlDice.Images.Item(dice1)
+            picDice5.Image = imlDice.Images.Item(dice1)
+            MsgBox("Sucess! Next Round.")
+            btnFullHouse.Enabled = False
+            intTimesRolled = 0
+            timesrolled.Text = 0
+        ElseIf (lblDice1counter.Text = lblDice2counter.Text And lblDice2counter.Text = lblDice5counter.Text) And lblDice4counter.Text = lblDice3counter.Text Then
+            lblFullhouseVALUE.Text = 20
+            picDice1.Image = imlDice.Images.Item(dice1)
+            picDice2.Image = imlDice.Images.Item(dice1)
+            picDice3.Image = imlDice.Images.Item(dice1)
+            picDice4.Image = imlDice.Images.Item(dice1)
+            picDice5.Image = imlDice.Images.Item(dice1)
+            MsgBox("Sucess! Next Round.")
+            btnFullHouse.Enabled = False
+            intTimesRolled = 0
+            timesrolled.Text = 0
+        ElseIf (lblDice1counter.Text = lblDice3counter.Text And lblDice3counter.Text = lblDice4counter.Text) And lblDice2counter.Text = lblDice5counter.Text Then
+            lblFullhouseVALUE.Text = 20
+            picDice1.Image = imlDice.Images.Item(dice1)
+            picDice2.Image = imlDice.Images.Item(dice1)
+            picDice3.Image = imlDice.Images.Item(dice1)
+            picDice4.Image = imlDice.Images.Item(dice1)
+            picDice5.Image = imlDice.Images.Item(dice1)
+            MsgBox("Sucess! Next Round.")
+            btnFullHouse.Enabled = False
+            intTimesRolled = 0
+            timesrolled.Text = 0
+        ElseIf (lblDice1counter.Text = lblDice3counter.Text And lblDice3counter.Text = lblDice5counter.Text) And lblDice2counter.Text = lblDice4counter.Text Then
+            lblFullhouseVALUE.Text = 20
+            picDice1.Image = imlDice.Images.Item(dice1)
+            picDice2.Image = imlDice.Images.Item(dice1)
+            picDice3.Image = imlDice.Images.Item(dice1)
+            picDice4.Image = imlDice.Images.Item(dice1)
+            picDice5.Image = imlDice.Images.Item(dice1)
+            MsgBox("Sucess! Next Round.")
+            btnFullHouse.Enabled = False
+            intTimesRolled = 0
+            timesrolled.Text = 0
+        ElseIf (lblDice1counter.Text = lblDice4counter.Text And lblDice4counter.Text = lblDice5counter.Text) And lblDice3counter.Text = lblDice2counter.Text Then
+            lblFullhouseVALUE.Text = 20
+            picDice1.Image = imlDice.Images.Item(dice1)
+            picDice2.Image = imlDice.Images.Item(dice1)
+            picDice3.Image = imlDice.Images.Item(dice1)
+            picDice4.Image = imlDice.Images.Item(dice1)
+            picDice5.Image = imlDice.Images.Item(dice1)
+            MsgBox("Sucess! Next Round.")
+            btnFullHouse.Enabled = False
+            intTimesRolled = 0
+            timesrolled.Text = 0
+        ElseIf (lblDice2counter.Text = lblDice3counter.Text And lblDice3counter.Text = lblDice4counter.Text) And lblDice1counter.Text = lblDice5counter.Text Then
+            lblFullhouseVALUE.Text = 20
+            picDice1.Image = imlDice.Images.Item(dice1)
+            picDice2.Image = imlDice.Images.Item(dice1)
+            picDice3.Image = imlDice.Images.Item(dice1)
+            picDice4.Image = imlDice.Images.Item(dice1)
+            picDice5.Image = imlDice.Images.Item(dice1)
+            MsgBox("Sucess! Next Round.")
+            btnFullHouse.Enabled = False
+            intTimesRolled = 0
+            timesrolled.Text = 0
+        ElseIf (lblDice2counter.Text = lblDice3counter.Text And lblDice3counter.Text = lblDice5counter.Text) And lblDice1counter.Text = lblDice4counter.Text Then
+            lblFullhouseVALUE.Text = 20
+            picDice1.Image = imlDice.Images.Item(dice1)
+            picDice2.Image = imlDice.Images.Item(dice1)
+            picDice3.Image = imlDice.Images.Item(dice1)
+            picDice4.Image = imlDice.Images.Item(dice1)
+            picDice5.Image = imlDice.Images.Item(dice1)
+            MsgBox("Sucess! Next Round.")
+            btnFullHouse.Enabled = False
+            intTimesRolled = 0
+            timesrolled.Text = 0
+        ElseIf (lblDice2counter.Text = lblDice4counter.Text And lblDice4counter.Text = lblDice5counter.Text) And lblDice1counter.Text = lblDice3counter.Text Then
+            lblFullhouseVALUE.Text = 20
+            picDice1.Image = imlDice.Images.Item(dice1)
+            picDice2.Image = imlDice.Images.Item(dice1)
+            picDice3.Image = imlDice.Images.Item(dice1)
+            picDice4.Image = imlDice.Images.Item(dice1)
+            picDice5.Image = imlDice.Images.Item(dice1)
+            MsgBox("Sucess! Next Round.")
+            btnFullHouse.Enabled = False
+            intTimesRolled = 0
+            timesrolled.Text = 0
+        ElseIf (lblDice3counter.Text = lblDice4counter.Text And lblDice4counter.Text = lblDice5counter.Text) And lblDice1counter.Text = lblDice2counter.Text Then
+            lblFullhouseVALUE.Text = 20
+            picDice1.Image = imlDice.Images.Item(dice1)
+            picDice2.Image = imlDice.Images.Item(dice1)
+            picDice3.Image = imlDice.Images.Item(dice1)
+            picDice4.Image = imlDice.Images.Item(dice1)
+            picDice5.Image = imlDice.Images.Item(dice1)
+            MsgBox("Sucess! Next Round.")
+            btnFullHouse.Enabled = False
+            intTimesRolled = 0
+            timesrolled.Text = 0
+            If timesrolled.Text = 3 Then
+                btnRoller.Enabled = False
+            End If
+        Else
+
+            If MsgBox("This Will Give you 0 Points, Would you like to continue?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = MsgBoxResult.Yes Then
+                MsgBox("NEXT TURN")
+                picDice1.Image = imlDice.Images.Item(dice1)
+                picDice2.Image = imlDice.Images.Item(dice1)
+                picDice3.Image = imlDice.Images.Item(dice1)
+                picDice4.Image = imlDice.Images.Item(dice1)
+                picDice5.Image = imlDice.Images.Item(dice1)
+                intTimesRolled = 0
+                timesrolled.Text = 0
+                btnFullHouse.Enabled = False
+            End If
+
+        End If
+
+
+
+
+    End Sub
+
+    Private Sub btnYAHTZEE_Click(sender As Object, e As EventArgs) Handles btnYAHTZEE.Click
+        If btnRoller.Enabled = False Then
+            btnRoller.Enabled = True
+        End If                 'same as others
+        If lblDice1counter.Text = lblDice2counter.Text And lblDice2counter.Text = lblDice3counter.Text And lblDice3counter.Text = lblDice4counter.Text And lblDice4counter.Text = lblDice5counter.Text Then
+            lblyahtzeeVALUE.Text = 45
+            picDice1.Image = imlDice.Images.Item(dice1)
+            picDice2.Image = imlDice.Images.Item(dice1)
+            picDice3.Image = imlDice.Images.Item(dice1)
+            picDice4.Image = imlDice.Images.Item(dice1)
+            picDice5.Image = imlDice.Images.Item(dice1)
+            MsgBox("Sucess! Next Round.")
+            btnYAHTZEE.Enabled = False
+            intTimesRolled = 0
+            timesrolled.Text = 0
+
+        Else
+            If MsgBox("This Will Give you 0 Points, Would you like to continue?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = MsgBoxResult.Yes Then
+                MsgBox("NEXT TURN")
+                picDice1.Image = imlDice.Images.Item(dice1)
+                picDice2.Image = imlDice.Images.Item(dice1)
+                picDice3.Image = imlDice.Images.Item(dice1)
+                picDice4.Image = imlDice.Images.Item(dice1)
+                picDice5.Image = imlDice.Images.Item(dice1)
+                intTimesRolled = 0
+                timesrolled.Text = 0
+                btnYAHTZEE.Enabled = False
+            End If
+        End If
+    End Sub
+
+
+
+
+
+
+    Private Sub btnLargeStraight_Click(sender As Object, e As EventArgs) Handles btnLargeStraight.Click
+        If btnRoller.Enabled = False Then
+            btnRoller.Enabled = True
+        End If
+        LargeStraight(0) = lblDice1counter.Text
+        LargeStraight(1) = lblDice2counter.Text
+        LargeStraight(2) = lblDice3counter.Text         'makes the variables equal to dice
+        LargeStraight(3) = lblDice4counter.Text
+        LargeStraight(4) = lblDice5counter.Text
+        Array.Sort(LargeStraight)                               'sorts the numbers
+        If LargeStraight(1) = LargeStraight(0) + 1 And LargeStraight(2) = LargeStraight(1) + 1 And LargeStraight(3) = LargeStraight(2) + 1 And LargeStraight(4) = LargeStraight(3) + 1 Then
+
+            lblLargestraightVALUE.Text = 30
+
+            'if the numbers are sorted properly then give points
+
+
+
+
+
+
+
+            picDice1.Image = imlDice.Images.Item(dice1)
+            picDice2.Image = imlDice.Images.Item(dice1)
+            picDice3.Image = imlDice.Images.Item(dice1)
+            picDice4.Image = imlDice.Images.Item(dice1)
+            picDice5.Image = imlDice.Images.Item(dice1)
+            MsgBox("Sucess! Next Round.")
+            btnLargeStraight.Enabled = False
+            intTimesRolled = 0
+            timesrolled.Text = 0
+        Else
+            If MsgBox("This Will Give you 0 Points, Would you like to continue?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = MsgBoxResult.Yes Then
+                MsgBox("NEXT TURN")
+                intTimesRolled = 0
+                timesrolled.Text = 0
+
+                picDice1.Image = imlDice.Images.Item(dice1)
+                picDice2.Image = imlDice.Images.Item(dice1)
+                picDice3.Image = imlDice.Images.Item(dice1)
+                picDice4.Image = imlDice.Images.Item(dice1)
+                picDice5.Image = imlDice.Images.Item(dice1)
+                btnLargeStraight.Enabled = False
+            End If
+        End If
+    End Sub
+
+    Private Sub btnEndGame_Click(sender As Object, e As EventArgs) Handles btnEndGame.Click
+        'when clicked the user is asked to enter name to save and also stops the game
+        If MsgBox("Would You Like to Save your Score?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = MsgBoxResult.Yes Then
+            username = InputBox("Player name?", "Name", , , )
+            MsgBox("Saved, Check Leaderboard for Score")
+            btnRoller.Visible = False
+            btnAces.Enabled = False
+            btnTwos.Enabled = False
+            btnThrees.Enabled = False
+            btnFours.Enabled = False
+            btnFives.Enabled = False
+            btnSixes.Enabled = False
+            btn3ofKind.Enabled = False
+            btn4ofakind.Enabled = False
+            btnSmallStraight.Enabled = False
+            btnLargeStraight.Enabled = False
+            btnChance.Enabled = False
+            btnFullHouse.Enabled = False
+            btnThrees.Enabled = False
+            btnYAHTZEE.Enabled = False
+            btnYahtzeeBonus.Enabled = False
+            btnHoldD1.Enabled = False
+            btnHoldD2.Enabled = False
+            btnHoldD3.Enabled = False
+            btnHoldD4.Enabled = False
+            btnHoldD5.Enabled = False
+            btnRULES.Enabled = False
+            btnEndGame.Enabled = False
+            btnexit.Visible = True
+            tmrScoreTracker.Enabled = False
+        Else
+
+            MsgBox("Ok Bye.")
+            Application.Exit()     'if player doesn't enter name then goodbye
+        End If
+
+
+    End Sub
+
+    Private Sub btnHighScores_Click(sender As Object, e As EventArgs) Handles btnHighScores.Click
+        If username IsNot Nothing Then            'shows player name and score
+            MsgBox(username & "'s Score is = " & lblTotalVALUE.Text, MsgBoxStyle.Information, "Take Screenshot To Save")
+        Else
+            MsgBox("Player hasn't entred name, please End Game and Save")
+        End If
+    End Sub
+
+    Private Sub btnexit_Click(sender As Object, e As EventArgs) Handles btnexit.Click
+        Application.Exit()
+    End Sub
+
+    Private Sub CKeasy_CheckedChanged(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub btnSmallStraight_Click(sender As Object, e As EventArgs) Handles btnSmallStraight.Click
+        Dim smallstraight(4) As Integer
+        smallstraight(0) = lblDice1counter.Text
+        smallstraight(1) = lblDice2counter.Text
+        smallstraight(2) = lblDice3counter.Text                         'same thing as large straight however has 2 if statements because there is one more combination
+        smallstraight(3) = lblDice4counter.Text
+        smallstraight(4) = lblDice5counter.Text
+        Array.Sort(smallstraight)
+
+        If smallstraight(1) = smallstraight(0) + 1 And smallstraight(2) = smallstraight(1) + 1 And smallstraight(3) = smallstraight(2) + 1 Then
+            lblsmallstraightVALUE.Text = 25
+            picDice1.Image = imlDice.Images.Item(dice1)
+            picDice2.Image = imlDice.Images.Item(dice1)
+            picDice3.Image = imlDice.Images.Item(dice1)
+            picDice4.Image = imlDice.Images.Item(dice1)
+            picDice5.Image = imlDice.Images.Item(dice1)
+            MsgBox("Sucess! Next Round.")
+            btnSmallStraight.Enabled = False
+            intTimesRolled = 0
+            timesrolled.Text = 0
+        ElseIf smallstraight(2) = smallstraight(1) + 1 And smallstraight(3) = smallstraight(2) + 1 And smallstraight(4) = smallstraight(3) + 1 Then
+            lblsmallstraightVALUE.Text = 25
+            picDice1.Image = imlDice.Images.Item(dice1)
+            picDice2.Image = imlDice.Images.Item(dice1)
+            picDice3.Image = imlDice.Images.Item(dice1)
+            picDice4.Image = imlDice.Images.Item(dice1)
+            picDice5.Image = imlDice.Images.Item(dice1)
+            MsgBox("Sucess! Next Round.")
+            btnSmallStraight.Enabled = False
+            intTimesRolled = 0
+            timesrolled.Text = 0
+        Else
+            If MsgBox("This Will Give you 0 Points, Would you like to continue?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = MsgBoxResult.Yes Then
+                lblsmallstraightVALUE.Text = 0
+                MsgBox("NEXT TURN")
+                picDice1.Image = imlDice.Images.Item(dice1)
+                picDice2.Image = imlDice.Images.Item(dice1)
+                picDice3.Image = imlDice.Images.Item(dice1)
+                picDice4.Image = imlDice.Images.Item(dice1)
+                picDice5.Image = imlDice.Images.Item(dice1)
+                intTimesRolled = 0
+                timesrolled.Text = 0
+                btnSmallStraight.Enabled = False
+            End If
+        End If
+
+
+    End Sub
+    Private Sub btnYahtzeeBonus_Click(sender As Object, e As EventArgs) Handles btnYahtzeeBonus.Click
+
+
+        If (lblDice1counter.Text = lblDice2counter.Text And lblDice2counter.Text = lblDice3counter.Text And lblDice3counter.Text = lblDice4counter.Text And lblDice4counter.Text = lblDice5counter.Text) And lblyahtzeeVALUE.Text > 5 Then
+            MsgBox("Pick a Score to BURN")
+            tmrYahtzeeBonus.Enabled = False
+            tmrYahtzeeBonus.Stop()
+            ck3ofkind.Visible = True
+            ck4ofkind.Visible = True                    'identifes if yahtzee was already used and if player has a second yahtzee 
+            ckfullhouse.Visible = True
+            cksstraight.Visible = True                              'if so it shows the burning options and disables the scoring buttons to prevent glitches
+            cklstraight.Visible = True
+            ckchance.Visible = True
+
+            btnYahtzeeBonus.Enabled = False
+            btnRoller.Visible = False
+            btnAces.Enabled = False
+            btnTwos.Enabled = False
+            btnThrees.Enabled = False
+            btnFours.Enabled = False
+            btnFives.Enabled = False
+            btnSixes.Enabled = False
+            btn3ofKind.Enabled = False
+            btn4ofakind.Enabled = False
+            btnSmallStraight.Enabled = False
+            btnLargeStraight.Enabled = False
+            btnChance.Enabled = False
+            btnFullHouse.Enabled = False
+            btnThrees.Enabled = False
+            btnYAHTZEE.Enabled = False
+        ElseIf MsgBox("This Will Give you 0 Points, Would you like to continue?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = MsgBoxResult.Yes Then
+            MsgBox("NEXT TURN")
+            intTimesRolled = 0
+            timesrolled.Text = 0
+            btnYahtzeeBonus.Enabled = False
+            picDice1.Image = imlDice.Images.Item(dice1)
+            picDice2.Image = imlDice.Images.Item(dice1)
+            picDice3.Image = imlDice.Images.Item(dice1)
+            picDice4.Image = imlDice.Images.Item(dice1)
+            picDice5.Image = imlDice.Images.Item(dice1)
+
+
+        End If
+    End Sub
+    Private Sub ck3ofkind_CheckedChanged(sender As Object, e As EventArgs) Handles ck3ofkind.CheckedChanged
+        MsgBox("Burnt 3 Of a Kind + Bonus 80 Points")
+        lblTotalVALUE.Text = Val(lblTotalVALUE.Text) - Val(lbl3ofkindVALUE.Text)
+        lbl3ofkindVALUE.Text = 0
+        lblyahtzeebonusVALUE.Text = 80
+        ck3ofkind.Visible = False
+        ck4ofkind.Visible = False
+        ckfullhouse.Visible = False
+        cksstraight.Visible = False
+        cklstraight.Visible = False                                 'identifies if the player selected to burn 3 of a kind and if so it updates total, makes the burning options disapear, and reenables all the scores EXCEPT the ones that were already used
+
+        ckchance.Visible = False
+        MsgBox("NEXT TURN")
+        intTimesRolled = 0
+        timesrolled.Text = 0
+        btn3ofKind.Enabled = False
+        picDice1.Image = imlDice.Images.Item(dice1)
+        picDice2.Image = imlDice.Images.Item(dice1)
+        picDice3.Image = imlDice.Images.Item(dice1)
+        picDice4.Image = imlDice.Images.Item(dice1)
+        picDice5.Image = imlDice.Images.Item(dice1)
+        If lblAcesVALUE.Text = 0 Then
+            btnAces.Enabled = True
+        End If
+        If lblTwosVALUE.Text = 0 Then
+            btnAces.Enabled = True
+        End If
+        If lblThreesVALUE.Text = 0 Then
+            btnThrees.Enabled = True
+        End If
+        If lblFoursVALUE.Text = 0 Then
+            btnFours.Enabled = True
+        End If
+        If lblFivesVALUE.Text = 0 Then
+            btnFives.Enabled = True
+        End If
+        If lblSixesVALUE.Text = 0 Then
+            btnSixes.Enabled = True
+        End If
+
+        If lbl4ofkindVALUE.Text = 0 Then
+            btn4ofakind.Enabled = True
+        End If
+        If lblsmallstraightVALUE.Text = 0 Then
+            btnSmallStraight.Enabled = True
+        End If
+        If lblLargestraightVALUE.Text = 0 Then
+            btnLargeStraight.Enabled = True
+        End If
+        If lblFullhouseVALUE.Text = 0 Then
+            btnFullHouse.Enabled = True
+        End If
+        If lblChanceVALUE.Text = 0 Then
+            btnChance.Enabled = True
+        End If
+        btnRoller.Visible = True
+        btn3ofKind.Text = "Burnt"
+    End Sub
+
+    Private Sub tmrYahtzeeBonus_Tick(sender As Object, e As EventArgs) Handles tmrYahtzeeBonus.Tick
+        ck3ofkind.Visible = False
+        ck4ofkind.Visible = False
+        ckfullhouse.Visible = False
+        cksstraight.Visible = False             'makes the burning options invisible untill yahtzee bonus is selected
+        cklstraight.Visible = False
+        ckchance.Visible = False
+
+    End Sub
+
+    Private Sub ck4ofkind_CheckedChanged(sender As Object, e As EventArgs) Handles ck4ofkind.CheckedChanged
+        MsgBox("Burnt 4 Of a Kind + Bonus 80 Points")
+        lblTotalVALUE.Text = Val(lblTotalVALUE.Text) - Val(lbl4ofkindVALUE.Text)
+        lbl4ofkindVALUE.Text = 0
+        lblyahtzeebonusVALUE.Text = 80
+        ck3ofkind.Visible = False
+        ck4ofkind.Visible = False
+        ckfullhouse.Visible = False
+        cksstraight.Visible = False                             'same as the 3ofakind one and same for the rest
+        cklstraight.Visible = False
+        ckchance.Visible = False
+        MsgBox("NEXT TURN")
+        intTimesRolled = 0
+        timesrolled.Text = 0
+        btn4ofakind.Enabled = False
+        picDice1.Image = imlDice.Images.Item(dice1)
+        picDice2.Image = imlDice.Images.Item(dice1)
+        picDice3.Image = imlDice.Images.Item(dice1)
+        picDice4.Image = imlDice.Images.Item(dice1)
+        picDice5.Image = imlDice.Images.Item(dice1)
+        If lblAcesVALUE.Text = 0 Then
+            btnAces.Enabled = True
+        End If
+        If lblTwosVALUE.Text = 0 Then
+            btnAces.Enabled = True
+        End If
+        If lblThreesVALUE.Text = 0 Then
+            btnThrees.Enabled = True
+        End If
+        If lblFoursVALUE.Text = 0 Then
+            btnFours.Enabled = True
+        End If
+        If lblFivesVALUE.Text = 0 Then
+            btnFives.Enabled = True
+        End If
+        If lblSixesVALUE.Text = 0 Then
+            btnSixes.Enabled = True
+        End If
+        If lbl3ofkindVALUE.Text = 0 Then
+            btn3ofKind.Enabled = True
+        End If
+
+        If lblsmallstraightVALUE.Text = 0 Then
+            btnSmallStraight.Enabled = True
+        End If
+        If lblLargestraightVALUE.Text = 0 Then
+            btnLargeStraight.Enabled = True
+        End If
+        If lblFullhouseVALUE.Text = 0 Then
+            btnFullHouse.Enabled = True
+        End If
+        If lblChanceVALUE.Text = 0 Then
+            btnChance.Enabled = True
+        End If
+        btn4ofakind.Text = "Burnt"
+        btnRoller.Visible = True
+    End Sub
+
+    Private Sub ckfullhouse_CheckedChanged(sender As Object, e As EventArgs) Handles ckfullhouse.CheckedChanged
+        MsgBox("Burnt Full House Of a Kind + Bonus 80 Points")
+        lblTotalVALUE.Text = Val(lblTotalVALUE.Text) - Val(lblFullhouseVALUE.Text)
+        lblFullhouseVALUE.Text = 0
+        lblyahtzeebonusVALUE.Text = 80
+        ck3ofkind.Visible = False
+        ck4ofkind.Visible = False
+        ckfullhouse.Visible = False
+        cksstraight.Visible = False
+        cklstraight.Visible = False
+        ckchance.Visible = False
+        MsgBox("NEXT TURN")
+        intTimesRolled = 0
+        timesrolled.Text = 0
+        btnFullHouse.Enabled = False
+        picDice1.Image = imlDice.Images.Item(dice1)
+        picDice2.Image = imlDice.Images.Item(dice1)
+        picDice3.Image = imlDice.Images.Item(dice1)
+        picDice4.Image = imlDice.Images.Item(dice1)
+        picDice5.Image = imlDice.Images.Item(dice1)
+        btnRoller.Visible = True
+        If lblAcesVALUE.Text = 0 Then
+            btnAces.Enabled = True
+        End If
+        If lblTwosVALUE.Text = 0 Then
+            btnAces.Enabled = True
+        End If
+        If lblThreesVALUE.Text = 0 Then
+            btnThrees.Enabled = True
+        End If
+        If lblFoursVALUE.Text = 0 Then
+            btnFours.Enabled = True
+        End If
+        If lblFivesVALUE.Text = 0 Then
+            btnFives.Enabled = True
+        End If
+        If lblSixesVALUE.Text = 0 Then
+            btnSixes.Enabled = True
+        End If
+        If lbl3ofkindVALUE.Text = 0 Then
+            btn3ofKind.Enabled = True
+        End If
+        If lbl4ofkindVALUE.Text = 0 Then
+            btn4ofakind.Enabled = True
+        End If
+        If lblsmallstraightVALUE.Text = 0 Then
+            btnSmallStraight.Enabled = True
+        End If
+        If lblLargestraightVALUE.Text = 0 Then
+            btnLargeStraight.Enabled = True
+        End If
+
+        If lblChanceVALUE.Text = 0 Then
+            btnChance.Enabled = True
+        End If
+        btnFullHouse.Text = "Burnt"
+        btnRoller.Visible = True
+    End Sub
+
+    Private Sub cksstraight_CheckedChanged(sender As Object, e As EventArgs) Handles cksstraight.CheckedChanged
+        MsgBox("Burnt Small Straight + Bonus 80 Points")
+        lblTotalVALUE.Text = Val(lblTotalVALUE.Text) - Val(lblsmallstraightVALUE.Text)
+        lblsmallstraightVALUE.Text = 0
+        lblyahtzeebonusVALUE.Text = 80
+        ck3ofkind.Visible = False
+        ck4ofkind.Visible = False
+        ckfullhouse.Visible = False
+        cksstraight.Visible = False
+        cklstraight.Visible = False
+        ckchance.Visible = False
+        MsgBox("NEXT TURN")
+        intTimesRolled = 0
+        timesrolled.Text = 0
+        btnSmallStraight.Enabled = False
+        picDice1.Image = imlDice.Images.Item(dice1)
+        picDice2.Image = imlDice.Images.Item(dice1)
+        picDice3.Image = imlDice.Images.Item(dice1)
+        picDice4.Image = imlDice.Images.Item(dice1)
+        picDice5.Image = imlDice.Images.Item(dice1)
+        If lblAcesVALUE.Text = 0 Then
+            btnAces.Enabled = True
+        End If
+        If lblTwosVALUE.Text = 0 Then
+            btnAces.Enabled = True
+        End If
+        If lblThreesVALUE.Text = 0 Then
+            btnThrees.Enabled = True
+        End If
+        If lblFoursVALUE.Text = 0 Then
+            btnFours.Enabled = True
+        End If
+        If lblFivesVALUE.Text = 0 Then
+            btnFives.Enabled = True
+        End If
+        If lblSixesVALUE.Text = 0 Then
+            btnSixes.Enabled = True
+        End If
+        If lbl3ofkindVALUE.Text = 0 Then
+            btn3ofKind.Enabled = True
+        End If
+        If lbl4ofkindVALUE.Text = 0 Then
+            btn4ofakind.Enabled = True
+        End If
+
+        If lblLargestraightVALUE.Text = 0 Then
+            btnLargeStraight.Enabled = True
+        End If
+        If lblFullhouseVALUE.Text = 0 Then
+            btnFullHouse.Enabled = True
+        End If
+        If lblChanceVALUE.Text = 0 Then
+            btnChance.Enabled = True
+        End If
+        btnSmallStraight.Text = "Burnt"
+        btnRoller.Visible = True
+    End Sub
+
+    Private Sub cklstraight_CheckedChanged(sender As Object, e As EventArgs) Handles cklstraight.CheckedChanged
+        MsgBox("Burnt  Large Straight + Bonus 80 Points")
+        lblTotalVALUE.Text = Val(lblTotalVALUE.Text) - Val(lblLargestraightVALUE.Text)
+        lblLargestraightVALUE.Text = 0
+        lblyahtzeebonusVALUE.Text = 80
+        ck3ofkind.Visible = False
+        ck4ofkind.Visible = False
+        ckfullhouse.Visible = False
+        cksstraight.Visible = False
+        cklstraight.Visible = False
+        ckchance.Visible = False
+        MsgBox("NEXT TURN")
+        intTimesRolled = 0
+        timesrolled.Text = 0
+        btnLargeStraight.Enabled = False
+        picDice1.Image = imlDice.Images.Item(dice1)
+        picDice2.Image = imlDice.Images.Item(dice1)
+        picDice3.Image = imlDice.Images.Item(dice1)
+        picDice4.Image = imlDice.Images.Item(dice1)
+        picDice5.Image = imlDice.Images.Item(dice1)
+        btnRoller.Visible = True
+        If lblAcesVALUE.Text = 0 Then
+            btnAces.Enabled = True
+        End If
+        If lblTwosVALUE.Text = 0 Then
+            btnTwos.Enabled = True
+        End If
+        If lblThreesVALUE.Text = 0 Then
+            btnThrees.Enabled = True
+        End If
+        If lblFoursVALUE.Text = 0 Then
+            btnFours.Enabled = True
+        End If
+        If lblFivesVALUE.Text = 0 Then
+            btnFives.Enabled = True
+        End If
+        If lblSixesVALUE.Text = 0 Then
+            btnSixes.Enabled = True
+        End If
+        If lbl3ofkindVALUE.Text = 0 Then
+            btn3ofKind.Enabled = True
+        End If
+        If lbl4ofkindVALUE.Text = 0 Then
+            btn4ofakind.Enabled = True
+        End If
+        If lblsmallstraightVALUE.Text = 0 Then
+            btnSmallStraight.Enabled = True
+        End If
+
+        If lblFullhouseVALUE.Text = 0 Then
+            btnFullHouse.Enabled = True
+        End If
+        If lblChanceVALUE.Text = 0 Then
+            btnChance.Enabled = True
+        End If
+
+        btnLargeStraight.Text = "Burnt"
+        btnRoller.Visible = True
+    End Sub
+
+    Private Sub ckchance_CheckedChanged(sender As Object, e As EventArgs) Handles ckchance.CheckedChanged
+        MsgBox("Burnt Chance + Bonus 80 Points")
+        lblTotalVALUE.Text = Val(lblTotalVALUE.Text) - Val(lblChanceVALUE.Text)
+        lblChanceVALUE.Text = 0
+        lblyahtzeebonusVALUE.Text = 80
+        ck3ofkind.Visible = False
+        ck4ofkind.Visible = False
+        ckfullhouse.Visible = False
+        cksstraight.Visible = False
+        cklstraight.Visible = False
+        ckchance.Visible = False
+        MsgBox("NEXT TURN")
+        intTimesRolled = 0
+        timesrolled.Text = 0
+        btnChance.Enabled = False
+        picDice1.Image = imlDice.Images.Item(dice1)
+        picDice2.Image = imlDice.Images.Item(dice1)
+        picDice3.Image = imlDice.Images.Item(dice1)
+        picDice4.Image = imlDice.Images.Item(dice1)
+        picDice5.Image = imlDice.Images.Item(dice1)
+        btnRoller.Visible = True
+        If lblAcesVALUE.Text = 0 Then
+            btnAces.Enabled = True
+        End If
+        If lblTwosVALUE.Text = 0 Then
+            btnTwos.Enabled = True
+        End If
+        If lblThreesVALUE.Text = 0 Then
+            btnThrees.Enabled = True
+        End If
+        If lblFoursVALUE.Text = 0 Then
+            btnFours.Enabled = True
+        End If
+        If lblFivesVALUE.Text = 0 Then
+            btnFives.Enabled = True
+        End If
+        If lblSixesVALUE.Text = 0 Then
+            btnSixes.Enabled = True
+        End If
+        If lbl3ofkindVALUE.Text = 0 Then
+            btn3ofKind.Enabled = True
+        End If
+        If lbl4ofkindVALUE.Text = 0 Then
+            btn4ofakind.Enabled = True
+        End If
+        If lblsmallstraightVALUE.Text = 0 Then
+            btnSmallStraight.Enabled = True
+        End If
+        If lblLargestraightVALUE.Text = 0 Then
+            btnLargeStraight.Enabled = True
+        End If
+        If lblFullhouseVALUE.Text = 0 Then
+            btnFullHouse.Enabled = True
+        End If
+        btnRoller.Visible = True
+
+        btnChance.Text = "Burnt"
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        lblDice1counter.Text = 1
+        lblDice2counter.Text = 1
+        lblDice3counter.Text = 1
+        lblDice4counter.Text = 1
+        lblDice5counter.Text = 1                        'for easy testing of yahtzee
+    End Sub
+
+    Private Sub picDice3_Click(sender As Object, e As EventArgs) Handles picDice3.Click
+
+    End Sub
+
+
+    Dim random As Random
+    Private Sub lblacesLABEL_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub lblBonusLABEL_Click(sender As Object, e As EventArgs) Handles lblBonusLABEL.Click
+
+    End Sub
+End Class
